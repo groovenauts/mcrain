@@ -6,6 +6,7 @@ pipeline {
       environment {
         PARALLEL_TEST_PROCESSORS = "1"
         BUNDLE_DISABLE_EXEC_LOAD = "1"
+        DOCKER_HOST = "tcp://127.0.0.1:2375"
       }
       steps {
         sh '''#!/bin/bash -l
