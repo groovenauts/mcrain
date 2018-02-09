@@ -20,6 +20,39 @@ pipeline {
       }
     }
   }
+  post {
+    changed {
+      slackNotify(currentBuild.currentResult)
+    }
+    aborted {
+      slackNotify("ABORTED")
+    }
+  }
+}
+
+
+def slackNotify(result){
+  // https://github.com/jenkinsci/slack-plugin/issues/327
+  def durationString = currentBuild.durationString.replace(' and counting', '')
+  def notificationMessage = {resultString ->
+    "${env.JOB_NAME} - ${currentBuild.displayName} ${resultString} after ${durationString} (<${env.RUN_DISPLAY_URL}|Open>)"
+  }
+  switch(result){
+    case "SUCCESS":
+      slackSend color: 'good', message: notificationMessage("Back to normal")
+      break
+    case "FAILURE":
+      slackSend color: 'danger', message: notificationMessage("Failure")
+      break
+    case "UNSTABLE":
+      slackSend color: 'danger', message: notificationMessage("Unstable")
+      break
+    case "ABORTED":
+      slackSend color: 'warning', message: notificationMessage("Aborted")
+      break
+    default:
+      slackSend color: 'warning', message: notificationMessage("Unknown")
+  }
 }
 
 /* vim:set ft=groovy: */
