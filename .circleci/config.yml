@@ -4,7 +4,8 @@ jobs:
     working_directory: ~/mcrain
 
     ## see https://circleci.com/docs/2.0/executor-types/#machine-executor-overview
-    machine: true
+    machine:
+      image: circleci/classic:201711-01
 
     steps:
       - checkout
@@ -26,6 +27,12 @@ jobs:
             gem --version
             gem env
             bundle --version
+
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends libmysqlclient-dev
 
       - run:
           name: Open docker TCP port
