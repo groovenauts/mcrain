@@ -92,7 +92,7 @@ begin
 
 rescue => e
   $stderr.puts "\e[31m[#{e.class}] #{e.message}\e[0m"
-  $stderr.puts e.backtrace.join("\n  ") if verbose
+  $stderr.puts e.backtrace.join("\n  ") if opts[:verbose]
   exit(1)
 else
   $stderr.puts "\e[32mOK\e[0m"
