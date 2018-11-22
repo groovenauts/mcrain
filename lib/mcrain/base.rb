@@ -75,7 +75,7 @@ module Mcrain
     # 実際にそのAPIを叩いてみて例外が起きないことを確認します。
     def wait
       logger.info("#{self.class.name}#wait STARTED")
-      Timeout.timeout(30) do
+      Timeout.timeout(60) do
         begin
           wait_for_ready
         rescue => e
