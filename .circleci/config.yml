@@ -43,7 +43,7 @@ jobs:
 
       - run: docker pull mysql:5.5
       - run: docker pull redis:2.8
-      - run: docker pull rabbitmq:3.4.4-management
+      - run: docker pull rabbitmq:3.5-management
       - run: docker pull hectcastro/riak:latest
 
       - run: bundle install --jobs=4 --path=vendor/bundle
